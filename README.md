@@ -93,6 +93,8 @@ TrustRAG combine les deux de façon contrôlée.
 
 
 
+
+    
 trustRAG/
 
  ── app/
@@ -103,7 +105,6 @@ trustRAG/
          ── loaders.py       # Chargement & parsing
          ── chunker.py       # Découpage intelligent
          ── metadata.py      # Scores V4-A
-    
      ── index/
          ── index_manager.py # Vector store
          
@@ -119,9 +120,11 @@ trustRAG/
      ── generation/
          ── generator.py     # Appel LLM
          ── grounding_guardrails.py
- 
- ── pipelines/
+     ── pipelines/
      ── retrieval_pipeline.py# Pipeline complet
+ 
+
+
 
 
 
