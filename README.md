@@ -10,10 +10,29 @@
 
 Contrairement au RAG classique, qui repose uniquement sur la similarité d’embeddings, TrustRAG ajoute une notion cruciale :
 
+La fiabilité des sources (authority-aware retrieval)**
+
+Ainsi, entre deux documents très proches :
+
+ ✔ Un formulaire SEC audité → priorité
+    
+ ✖ Un article Web ou une brève de presse → utilisé uniquement en contexte secondaire
+
+TrustRAG est donc un **RAG sensible à l’autorité, la fraîcheur, et la structure de l’information**.
 
 
+#  1. Pourquoi TrustRAG ?
+Les embeddings ne suffisent pas :
 
+- une brochure commerciale peut être **plus similaire** qu’un rapport SEC,
+    
+- une news récente peut être **plus proche textuellement** qu’un bilan financier.
 
+→ Le RAG classique choisit la mauvaise source.  
+→ TrustRAG introduit **la qualité comme critère principal**.
+
+Ce projet résout donc directement le défi donné.
+---
 
 
 
@@ -151,4 +170,5 @@ trustRAG/
 │
 └── pipelines/
     └── retrieval_pipeline.py# Pipeline complet
+
 
