@@ -73,9 +73,6 @@ Dataset fourni :
 - apporter du macro (inflation, housing, FX…)
 - **jamais remplacer un chiffre officiel**
 
-
-
-
 ---
 
 ## Pourquoi c’est important ?
@@ -88,45 +85,32 @@ TrustRAG combine les deux de façon contrôlée.
 
 
 
-
-
-  trustRAG/
-
-     ── app/
- 
-    ── gui_gradio.py        # Interface utilisateur
-    
-     ── core/
- 
-     ── ingestion/
-     
-         ── loaders.py       # Chargement & parsing  
-         
-         ── chunker.py       # Découpage intelligent
-         
-         ── metadata.py      # Scores V4-A
-       
-     ── index/
-         ── index_manager.py # Vector store
-         
-     ── knowledge_graph/
-         ── kg_builder.py    # Extraction des triples
-         ── kg_client.py     # Recherche dans le KG
-       
-     ── retrieval/
-         ── dual_retriever.py# Fusion vector+KG
-         ── reranker_trust.py# Reranking basé fiabilité
-         ── query_transformer.py (désactivé)
-     
-     ── generation/
-         ── generator.py     # Appel LLM
-         ── grounding_guardrails.py
-     ── pipelines/
-     ── retrieval_pipeline.py# Pipeline complet
- 
-
-
-
-
-
-
+trustRAG/
+│
+├── app/
+│   └── gui_gradio.py                # Interface utilisateur (Gradio)
+│
+├── core/
+│   ├── ingestion/
+│   │   ├── loaders.py               # Chargement & parsing des documents
+│   │   ├── chunker.py               # Découpage intelligent en chunks
+│   │   └── metadata.py              # Calcul des scores V4-A
+│   │
+│   ├── index/
+│   │   └── index_manager.py         # Vector store (embeddings)
+│   │
+│   ├── knowledge_graph/
+│   │   ├── kg_builder.py            # Construction du Knowledge Graph
+│   │   └── kg_client.py             # Recherche dans le KG structuré
+│   │
+│   ├── retrieval/
+│   │   ├── dual_retriever.py        # Fusion vectorielle + KG
+│   │   ├── reranker_trust.py        # Reranking basé sur la fiabilité
+│   │   └── query_transformer.py     # Génération de variantes de requêtes (désactivé)
+│   │
+│   └── generation/
+│       ├── generator.py             # Appel LLM (Ollama)
+│       └── grounding_guardrails.py  # Guardrails anti-hallucination
+│
+└── pipelines/
+    └── retrieval_pipeline.py        # Pipeline retrieval + génération
