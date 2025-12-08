@@ -186,12 +186,10 @@ Avantages :
 - faible mémoire  
 - adapté aux réponses factuelles
 
-
-
 ---
 
-#  5. Structure du projet (pour GitHub)
-    <img width="276" height="359" alt="image" src="https://github.com/user-attachments/assets/3ede1170-8670-47ab-adbd-54c4ab32109b" />
+#  5. Structure du projet
+<img width="276" height="359" alt="image" src="https://github.com/user-attachments/assets/d9dcc614-eb86-4194-8e95-fdb02d3d303f" />
 
 
 ---
@@ -306,6 +304,7 @@ Besoins couverts :
 `python -m core.knowledge_graph.kg_builder`
 ## Ouvrir l’interface :
 `python -m app.gui_gradio`
+
 
 
 
