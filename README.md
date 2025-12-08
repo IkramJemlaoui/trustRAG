@@ -97,15 +97,9 @@ TrustRAG combine les deux de façon contrôlée.
 
     
 trustRAG/
-
-
  ── app/
- 
     ── gui_gradio.py        # Interface utilisateur
-
-   
  ── core/
-
      ── ingestion/
      
          ── loaders.py       # Chargement & parsing
@@ -132,6 +126,7 @@ trustRAG/
      ── pipelines/
      ── retrieval_pipeline.py# Pipeline complet
  
+
 
 
 
