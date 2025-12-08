@@ -90,13 +90,13 @@ TrustRAG combine les deux de façon contrôlée.
 
 
 
-trustRAG/
+  trustRAG/
 
- ── app/
+     ── app/
  
     ── gui_gradio.py        # Interface utilisateur
     
- ── core/
+     ── core/
  
      ── ingestion/
      
@@ -124,6 +124,7 @@ trustRAG/
      ── pipelines/
      ── retrieval_pipeline.py# Pipeline complet
  
+
 
 
 
