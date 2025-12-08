@@ -14,9 +14,9 @@ La fiabilité des sources (authority-aware retrieval)**
 
 Ainsi, entre deux documents très proches :
 
- ✔ Un formulaire SEC audité → priorité
+ - Un formulaire SEC audité → priorité
     
- ✖ Un article Web ou une brève de presse → utilisé uniquement en contexte secondaire
+ - Un article Web ou une brève de presse → utilisé uniquement en contexte secondaire
 
 TrustRAG est donc un **RAG sensible à l’autorité, la fraîcheur, et la structure de l’information**.
 
@@ -34,78 +34,61 @@ Les embeddings ne suffisent pas :
 Ce projet résout donc directement le défi donné.
 ---
 
+#  2. Bases de données utilisées (2 niveaux d’autorité)
+
+TrustRAG exploite **deux sources de données distinctes**, chacune avec un **score d'autorité** intégré dans le pipeline.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Les RAG classiques sont aveugles à la fiabilité. 
-TrustRAG place la qualité, l’autorité et la fraîcheur des sources au centre du pipeline, afin de garantir des réponses justes, vérifiées et transparentes, même lorsque plusieurs documents semblent pertinents.
-
-Problématique visée (challenge du projet)
-“La similarité seule n’est pas suffisante. Entre deux informations similaires, le système doit toujours préférer la source la plus fiable.”
-
-TrustRAG corrige ce biais en introduisant un pipeline qui :
-
- -   sélectionne d’abord les documents les plus fiables (via un score d’autorité),
-
--   combine retrieval vectoriel + faits structurés (KG),
-
--   génère une réponse vérifiée, traçable,
-
--    refuse de répondre si la confiance est insuffisante.
-
-Exemple :
-Entre deux informations similaires sur la dette d’Apple :
-
-✔ SEC Form 10-K → haute autorité
-
-✖ Blog  → faible autorité
-
-TrustRAG doit éviter le blog même si l’embedding est plus proche.
-
-
-**Fonctionnalités principales**
-**1) Ingestion documentaire intelligente**
-
-Ingestion documentaire intelligente
-
-**Architecture du projet**
-Base principale : SEC Vector Store (Tier 1 – haute autorité)
+## Tier 1 — Base financière SEC (haute autorité)
 
 Contenu :
 
 - filings 10-K / 10-Q
-
 - données financières officielles
-
 - triples structurés (revenue, debt, assets…)
-
 - score d’autorité élevé (1.0)
 
 Rôle :
 
 - fournir les faits comptables exacts
-
 - base prioritaire pour les chiffres critiques
-
 - alignée avec l’objectif : favoriser la source la plus fiable
 
 
-Base secondaire : Market News & Macro Dataset (Tier 2 – autorité moyenne)
+## Tier 2 — Base Market News & Macro Trends (autorité moyenne)
+
+Dataset fourni :
+
+- **actualités économiques** (headline, date)  
+- **indice boursier impacté** (S&P500, Shanghai Composite…) 
+- **variation (%)**
+- **sentiment**
+- **secteur concerné**
+- **impact_level (Low / Medium / High)**
+- **entreprise associée**
+
+   Rôle :
+
+- contextualiser une variation
+- apporter du macro (inflation, housing, FX…)
+- **jamais remplacer un chiffre officiel**
+
+
+
+
+---
+
+## Pourquoi c’est important ?
+Pour une question comme :
+> “Pourquoi la dette d’Apple augmente ?”
+
+- **Tier1 SEC** → valeur exacte de la dette 
+- **Tier2 News** → contexte macro pouvant expliquer la tendance
+TrustRAG combine les deux de façon contrôlée.
+
+
+
+
 
 
 
@@ -170,5 +153,6 @@ trustRAG/
 │
 └── pipelines/
     └── retrieval_pipeline.py# Pipeline complet
+
 
 
