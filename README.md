@@ -110,7 +110,7 @@ Chaque chunk reçoit :
 
 ---
 
-## ✔ 2) Knowledge Graph structuré (KG)
+##  2) Knowledge Graph structuré (KG)
 
 Le fichier `kg_builder.py` :
 
@@ -306,6 +306,7 @@ Besoins couverts :
 `python -m core.knowledge_graph.kg_builder`
 ## Ouvrir l’interface :
 `python -m app.gui_gradio`
+
 
 
 
