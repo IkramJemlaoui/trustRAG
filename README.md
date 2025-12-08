@@ -124,35 +124,6 @@ trustRAG/
     └── retrieval_pipeline.py# Pipeline complet
 
 
-trustRAG/
-│
-├── app/
-│   └── gui_gradio.py        # Interface utilisateur
-│
-├── core/
-│   ├── ingestion/
-│   │   ├── loaders.py       # Chargement & parsing
-│   │   ├── chunker.py       # Découpage intelligent
-│   │   └── metadata.py      # Scores V4-A
-│   │
-│   ├── index/
-│   │   └── index_manager.py # Vector store
-│   │
-│   ├── knowledge_graph/
-│   │   ├── kg_builder.py    # Extraction des triples
-│   │   └── kg_client.py     # Recherche dans le KG
-│   │
-│   ├── retrieval/
-│   │   ├── dual_retriever.py# Fusion vector+KG
-│   │   ├── reranker_trust.py# Reranking basé fiabilité
-│   │   └── query_transformer.py (désactivé)
-│   │
-│   └── generation/
-│       ├── generator.py     # Appel LLM
-│       └── grounding_guardrails.py
-│
-└── pipelines/
-    └── retrieval_pipeline.py# Pipeline complet
 
 
 
