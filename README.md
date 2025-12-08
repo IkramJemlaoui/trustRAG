@@ -85,32 +85,28 @@ TrustRAG combine les deux de façon contrôlée.
 
 
 
-trustRAG/
-│
-├── app/
-│   └── gui_gradio.py                # Interface utilisateur (Gradio)
-│
-├── core/
-│   ├── ingestion/
-│   │   ├── loaders.py               # Chargement & parsing des documents
-│   │   ├── chunker.py               # Découpage intelligent en chunks
-│   │   └── metadata.py              # Calcul des scores V4-A
-│   │
-│   ├── index/
-│   │   └── index_manager.py         # Vector store (embeddings)
-│   │
-│   ├── knowledge_graph/
-│   │   ├── kg_builder.py            # Construction du Knowledge Graph
-│   │   └── kg_client.py             # Recherche dans le KG structuré
-│   │
-│   ├── retrieval/
-│   │   ├── dual_retriever.py        # Fusion vectorielle + KG
-│   │   ├── reranker_trust.py        # Reranking basé sur la fiabilité
-│   │   └── query_transformer.py     # Génération de variantes de requêtes (désactivé)
-│   │
-│   └── generation/
-│       ├── generator.py             # Appel LLM (Ollama)
-│       └── grounding_guardrails.py  # Guardrails anti-hallucination
-│
-└── pipelines/
-    └── retrieval_pipeline.py        # Pipeline retrieval + génération
+graph TD
+    A[app/gui_gradio.py] --> B(core/ingestion)
+    B --> B1(loaders.py)
+    B --> B2(chunker.py)
+    B --> B3(metadata.py)
+
+    A --> C(core/index)
+    C --> C1(index_manager.py)
+
+    A --> D(core/knowledge_graph)
+    D --> D1(kg_builder.py)
+    D --> D2(kg_client.py)
+
+    A --> E(core/retrieval)
+    E --> E1(dual_retriever.py)
+    E --> E2(reranker_trust.py)
+    E --> E3(query_transformer.py)
+
+    A --> F(core/generation)
+    F --> F1(generator.py)
+    F --> F2(grounding_guardrails.py)
+
+    A --> G(pipelines/retrieval_pipeline.py)
+
+
