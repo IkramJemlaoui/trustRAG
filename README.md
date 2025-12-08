@@ -106,7 +106,7 @@ trustRAG/
       
      ── index/
          ── index_manager.py # Vector store
-   
+         
      ── knowledge_graph/
          ── kg_builder.py    # Extraction des triples
          ── kg_client.py     # Recherche dans le KG
@@ -122,6 +122,7 @@ trustRAG/
  
  ── pipelines/
      ── retrieval_pipeline.py# Pipeline complet
+
 
 
 
