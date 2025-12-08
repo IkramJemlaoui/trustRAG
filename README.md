@@ -1,29 +1,53 @@
-**TrustRAG — Retrieval-Augmented Generation basé sur la Fiabilité des Sources**
-TrustRAG est un Retrieval-Augmented Generator conçu pour résoudre un problème précis :
-Dans un corpus contenant plusieurs informations similaires, comment s’assurer que la réponse provient de la source la plus fiable 
-— et non de la source la plus “similaire” selon les embeddings ?
+# TrustRAG — Retrieval-Augmented Generation Fiable pour l’Analyse Financière
+
+## 🎯 Objectif du projet
+
+
+**TrustRAG** est un système de **Retrieval-Augmented Generation (RAG)** conçu pour répondre à un défi clé :
+
+> **Entre deux informations similaires, comment choisir la source la plus fiable ?**  
+> (et éviter que le LLM réponde à partir d’un document moins autoritaire)
+
+Contrairement au RAG classique, qui repose uniquement sur la similarité d’embeddings, TrustRAG ajoute une notion cruciale :
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Les RAG classiques sont aveugles à la fiabilité. 
-TrustRAG place la qualité, l’autorité et la fraîcheur des sources au centre du pipeline, afin de garantir des réponses justes, vérifiées et transparentes, 
-même lorsque plusieurs documents semblent pertinents.
+TrustRAG place la qualité, l’autorité et la fraîcheur des sources au centre du pipeline, afin de garantir des réponses justes, vérifiées et transparentes, même lorsque plusieurs documents semblent pertinents.
 
 Problématique visée (challenge du projet)
 “La similarité seule n’est pas suffisante. Entre deux informations similaires, le système doit toujours préférer la source la plus fiable.”
 
-Objectif du projet
+TrustRAG corrige ce biais en introduisant un pipeline qui :
 
-Construire un RAG qui privilégie la qualité, pas seulement la similarité.
+ -   sélectionne d’abord les documents les plus fiables (via un score d’autorité),
 
-Le système doit :
+-   combine retrieval vectoriel + faits structurés (KG),
 
-choisir les documents les plus fiables (notés via des métadonnées)
+-   génère une réponse vérifiée, traçable,
 
-combiner récupération vectorielle + faits structurés
-
-vérifier que la réponse est ancrée dans des sources crédibles
-
-refuser de répondre si la fiabilité est insuffisante
-
+-    refuse de répondre si la confiance est insuffisante.
 
 Exemple :
 Entre deux informations similaires sur la dette d’Apple :
@@ -35,28 +59,96 @@ Entre deux informations similaires sur la dette d’Apple :
 TrustRAG doit éviter le blog même si l’embedding est plus proche.
 
 
-Fonctionnalités principales :
- **1) Ingestion documentaire intelligente**
-Extraction depuis :
-
-- Filings SEC (10-K, 10-Q)
-    
-- PDF financiers
-    
-- Pages HTML
-    
-
-Chaque chunk reçoit un score basé sur :
-
-- source (SEC, corporate, web…)
-    
-- date
-    
-- qualité de structure
-    
-- présence de valeurs numériques
-    
-- contraintes métier
-
+**Fonctionnalités principales**
+**1) Ingestion documentaire intelligente**
 
 Ingestion documentaire intelligente
+
+**Architecture du projet**
+Base principale : SEC Vector Store (Tier 1 – haute autorité)
+
+Contenu :
+
+- filings 10-K / 10-Q
+
+- données financières officielles
+
+- triples structurés (revenue, debt, assets…)
+
+- score d’autorité élevé (1.0)
+
+Rôle :
+
+- fournir les faits comptables exacts
+
+- base prioritaire pour les chiffres critiques
+
+- alignée avec l’objectif : favoriser la source la plus fiable
+
+
+Base secondaire : Market News & Macro Dataset (Tier 2 – autorité moyenne)
+
+
+
+
+trustRAG/
+│
+├── app/
+│   └── gui_gradio.py        # Interface utilisateur
+│
+├── core/
+│   ├── ingestion/
+│   │   ├── loaders.py       # Chargement & parsing
+│   │   ├── chunker.py       # Découpage intelligent
+│   │   └── metadata.py      # Scores V4-A
+│   │
+│   ├── index/
+│   │   └── index_manager.py # Vector store
+│   │
+│   ├── knowledge_graph/
+│   │   ├── kg_builder.py    # Extraction des triples
+│   │   └── kg_client.py     # Recherche dans le KG
+│   │
+│   ├── retrieval/
+│   │   ├── dual_retriever.py# Fusion vector+KG
+│   │   ├── reranker_trust.py# Reranking basé fiabilité
+│   │   └── query_transformer.py (désactivé)
+│   │
+│   └── generation/
+│       ├── generator.py     # Appel LLM
+│       └── grounding_guardrails.py
+│
+└── pipelines/
+    └── retrieval_pipeline.py# Pipeline complet
+
+
+trustRAG/
+│
+├── app/
+│   └── gui_gradio.py        # Interface utilisateur
+│
+├── core/
+│   ├── ingestion/
+│   │   ├── loaders.py       # Chargement & parsing
+│   │   ├── chunker.py       # Découpage intelligent
+│   │   └── metadata.py      # Scores V4-A
+│   │
+│   ├── index/
+│   │   └── index_manager.py # Vector store
+│   │
+│   ├── knowledge_graph/
+│   │   ├── kg_builder.py    # Extraction des triples
+│   │   └── kg_client.py     # Recherche dans le KG
+│   │
+│   ├── retrieval/
+│   │   ├── dual_retriever.py# Fusion vector+KG
+│   │   ├── reranker_trust.py# Reranking basé fiabilité
+│   │   └── query_transformer.py (désactivé)
+│   │
+│   └── generation/
+│       ├── generator.py     # Appel LLM
+│       └── grounding_guardrails.py
+│
+└── pipelines/
+    └── retrieval_pipeline.py# Pipeline complet
+
