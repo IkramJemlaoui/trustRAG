@@ -25,7 +25,6 @@ TrustRAG est donc un **RAG sensible à l’autorité, la fraîcheur, et la struc
 Les embeddings ne suffisent pas :
 
 - une brochure commerciale peut être **plus similaire** qu’un rapport SEC,
-    
 - une news récente peut être **plus proche textuellement** qu’un bilan financier.
 
 → Le RAG classique choisit la mauvaise source.  
@@ -84,29 +83,12 @@ Pour une question comme :
 TrustRAG combine les deux de façon contrôlée.
 
 
+#  3. Architecture du pipeline
 
-graph TD
-    A[app/gui_gradio.py] --> B(core/ingestion)
-    B --> B1(loaders.py)
-    B --> B2(chunker.py)
-    B --> B3(metadata.py)
+<img width="232" height="331" alt="image" src="https://github.com/user-attachments/assets/84a88c29-fdf6-46ff-887a-7b5cfa1656f1" />
 
-    A --> C(core/index)
-    C --> C1(index_manager.py)
 
-    A --> D(core/knowledge_graph)
-    D --> D1(kg_builder.py)
-    D --> D2(kg_client.py)
 
-    A --> E(core/retrieval)
-    E --> E1(dual_retriever.py)
-    E --> E2(reranker_trust.py)
-    E --> E3(query_transformer.py)
 
-    A --> F(core/generation)
-    F --> F1(generator.py)
-    F --> F2(grounding_guardrails.py)
-
-    A --> G(pipelines/retrieval_pipeline.py)
 
 
